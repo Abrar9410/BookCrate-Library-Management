@@ -1,14 +1,12 @@
+import BooksTable from "@/components/BooksTable";
 import { useGetAllBooksQuery } from "@/redux/api/baseApi";
-import { useState } from "react";
+import { useAppSelector } from "@/redux/hooks";
+import type { Ibook } from "@/types";
 
 
 const Books = () => {
 
-    const [filter, setFilter] = useState('');
-    const [sortBy, setSortBy] = useState('');
-    const [sort, setSort] = useState('');
-    const [skip, setSkip] = useState(0);
-    const [limit, setLimit] = useState(5);
+    const {filter, sortBy, sort, skip, limit} = useAppSelector((state) => state.queries);
     
     const { data, isLoading } = useGetAllBooksQuery(`?filter=${filter}&sortBy=${sortBy}&sort=${sort}&skip=${skip}&limit=${limit}`);
 
@@ -16,14 +14,14 @@ const Books = () => {
         return <p>Loading...</p>
     };
 
+    if (!data) {
+        return <p>Sorry! Books could not be retrieved.</p>
+    }
+
     return (
         <div>
             THIS IS ALL BOOKS ROUTE
-            {
-                data.data.map(book => (
-                    <p key={book._id}>{book.title}</p>
-                ))
-            }
+            <BooksTable books={data.data}/>
         </div>
     );
 };
