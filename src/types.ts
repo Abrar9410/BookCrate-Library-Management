@@ -11,6 +11,8 @@ export interface Ibook {
     updatedAt: string,
 };
 
+export type DraftBook = Pick<Ibook, "title" | "author" | "genre" | "isbn" | "description" | "copies" >;
+
 export interface IborrowedBook {
     book : {
         title: string,
