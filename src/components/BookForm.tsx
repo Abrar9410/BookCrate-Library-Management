@@ -58,6 +58,7 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
             toast("Book edited successfully!", {
                 position: "top-center"
             });
+            reset();
             navigate(-1);
         }
     };

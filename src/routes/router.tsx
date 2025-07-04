@@ -4,6 +4,7 @@ import Books from "@/pages/Books";
 import CreateBook from "@/pages/CreateBook";
 import BorrowSummary from "@/pages/BorrowSummary";
 import SingleBook from "@/pages/SingleBook";
+import EditBook from "@/pages/EditBook";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "/create-book",
                 element: <CreateBook/>
+            },
+            {
+                path: "edit-book/:id",
+                element: <EditBook />
             },
             {
                 path: "/borrow-summary",

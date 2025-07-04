@@ -13,7 +13,8 @@ export const baseApi = createApi({
         }),
 
         getSingleBook: build.query({
-            query: (bookId: string) => `/books/${bookId}`
+            query: (bookId: string) => `/books/${bookId}`,
+            providesTags: ['books']
         }),
 
         createBook: build.mutation({
