@@ -8,10 +8,10 @@ import { toast } from 'sonner';
 import Swal from "sweetalert2";
 
 
-const BooksTable = ({books}: {books:Ibook[]}) => {
+const BooksTable = ({ books }: { books: Ibook[] }) => {
 
     const isDarkMode = useIsDarkMode();
-    const [ deleteBook ] = useDeleteBookMutation();
+    const [deleteBook] = useDeleteBookMutation();
     const navigate = useNavigate();
 
     const handleDelete = async (id: string) => {
@@ -24,13 +24,13 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
             confirmButtonText: "Yes, Delete!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-               const {data} = await deleteBook(id);
-               if (data.success) {
+                const { data } = await deleteBook(id);
+                if (data.success) {
                     toast("Book is deleted successfully", {
                         position: "top-center"
                     });
                     navigate("/");
-               }
+                }
             }
         });
     }
@@ -86,9 +86,9 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
             selector: (row) => row.available,
             sortable: true,
             cell: (row) => (
-            <p className="w-max mx-auto text-center">
-                {row.available === true? "Available" : "Not Available"}
-            </p>
+                <p className="w-max mx-auto text-center">
+                    {row.available === true ? "Available" : "Not Available"}
+                </p>
             ),
             minWidth: "120px",
             maxWidth: "170px"
@@ -106,7 +106,7 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
                     </Link>
                     <Link to={`/edit-book/${row._id}`} className="w-max text-yellow-400 flex justify-center items-center gap-1 hover:scale-105 hover:underline">
                         <span>Edit</span>
-                        <Pencil className='w-3 h-3'/>
+                        <Pencil className='w-3 h-3' />
                     </Link>
                     <button onClick={() => handleDelete(row._id)} className="w-max px-2 rounded-lg bg-red-500 text-black hover:scale-105 cursor-pointer">Delete</button>
                 </div>
@@ -118,7 +118,7 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
     const tableStyles: TableStyles = {
         table: {
             style: {
-                tableLayout: "auto" 
+                tableLayout: "auto"
             }
         },
         headCells: {
@@ -149,17 +149,15 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
     };
 
     return (
-        <div>
-            <div className="flex flex-col justify-center items-center">
-                <DataTable
-                    columns={columns}
-                    data={books}
-                    customStyles={tableStyles}
-                    theme={isDarkMode? 'dark': 'light'}
-                    defaultSortFieldId={1} // Optional: Set default sorting
-                    pagination
-                />
-            </div>
+        <div className="flex flex-col justify-center items-center">
+            <DataTable
+                columns={columns}
+                data={books}
+                customStyles={tableStyles}
+                theme={isDarkMode ? 'dark' : 'light'}
+                defaultSortFieldId={1} // Optional: Set default sorting
+                pagination
+            />
         </div>
     );
 };

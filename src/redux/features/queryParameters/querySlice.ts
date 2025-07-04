@@ -6,7 +6,11 @@ const initialState = {
     sortBy: "",
     sort: "",
     skip: 0,
-    limit: 0
+    limit: 0,
+    borrowSortBy: "",
+    borrowSort: "",
+    borrowSkip: 0,
+    borrowLimit: 0,
 }
 
 const querySlice = createSlice({
@@ -24,6 +28,21 @@ const querySlice = createSlice({
         },
         setSkip: (state, action) => {
             state.skip = action.payload;
+        },
+        setLimit: (state, action) => {
+            state.limit = action.payload;
+        },
+        setBorrowSortBy: (state, action) => {
+            state.borrowSortBy = action.payload;
+        },
+        setBorrowSort: (state, action) => {
+            state.borrowSort = action.payload;
+        },
+        setBorrowSkip: (state, action) => {
+            state.borrowSkip = action.payload;
+        },
+        setBorrowLimit: (state, action) => {
+            state.borrowLimit = action.payload;
         },
     }
 });
