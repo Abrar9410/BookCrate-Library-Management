@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Books from "@/pages/Books";
 import CreateBook from "@/pages/CreateBook";
 import BorrowSummary from "@/pages/BorrowSummary";
+import SingleBook from "@/pages/SingleBook";
 
 
 const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "/books",
                 element: <Books/>
+            },
+            {
+                path: "/books/:id",
+                element: <SingleBook/>
             },
             {
                 path: "/create-book",

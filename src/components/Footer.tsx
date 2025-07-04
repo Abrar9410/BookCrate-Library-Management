@@ -2,7 +2,7 @@
 
 const Footer = () => {
     return (
-        <div className="text-center">
+        <div className="w-full bg-yellow-700">
             THIS IS FOOTER
         </div>
     );

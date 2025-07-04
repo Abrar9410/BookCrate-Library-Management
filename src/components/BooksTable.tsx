@@ -1,33 +1,39 @@
+import { useDeleteBookMutation } from '@/redux/api/baseApi';
 import type { Ibook } from '@/types';
 import { useIsDarkMode } from '@/utilities';
+import { Handshake, Pencil } from 'lucide-react';
 import DataTable, { type TableColumn, type TableStyles } from 'react-data-table-component';
+import { Link, useNavigate } from 'react-router';
+import { toast } from 'sonner';
+import Swal from "sweetalert2";
 
 
 const BooksTable = ({books}: {books:Ibook[]}) => {
 
     const isDarkMode = useIsDarkMode();
+    const [ deleteBook ] = useDeleteBookMutation();
+    const navigate = useNavigate();
 
-    // const handleDelete = id => {
-    //     Swal.fire({
-    //         title: "Are you sure you want to delete this Camp?",
-    //         icon: "warning",
-    //         showCancelButton: true,
-    //         confirmButtonColor: "#d33",
-    //         cancelButtonColor: "#3085d6",
-    //         confirmButtonText: "Yes, Delete!"
-    //     }).then(async (result) => {
-    //         if (result.isConfirmed) {
-    //             const { data } = await axiosSecure.delete(`/delete-camp/${id}`);
-    //             if (data.deletedCount > 0) {
-    //                 toast.success('Camp deleted successfully!', {
-    //                     position: "top-center",
-    //                     autoClose: 1000
-    //                 })
-    //             }
-    //             refetch();
-    //         }
-    //     });
-    // }
+    const handleDelete = async (id: string) => {
+        Swal.fire({
+            title: "Are you sure you want to delete this Book?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, Delete!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+               const {data} = await deleteBook(id);
+               if (data.success) {
+                    toast("Book is deleted successfully", {
+                        position: "top-center"
+                    });
+                    navigate("/");
+               }
+            }
+        });
+    }
 
     const columns: TableColumn<Ibook>[] = [
         {
@@ -36,19 +42,10 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
             sortable: true,
             cell: (row) => (
                 <div className="w-max mx-auto text-center">
-                    <span>{row.title}</span>
+                    <Link to={`/books/${row._id}`} className='hover:scale-105 hover:underline hover:text-yellow-700'>{row.title}</Link>
                 </div>
             ),
             minWidth: "245px",
-            maxWidth: "450px",
-        },
-        {
-            name: "Description",
-            selector: (row) => row.description as string,
-            sortable: true,
-            cell: (row) => <span className="px-1">{row.description}</span>,
-            minWidth: "130px",
-            maxWidth: "content"
         },
         {
             name: "Author",
@@ -57,6 +54,14 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
             sortable: true,
             minWidth: "110px",
             maxWidth: "200px",
+        },
+        {
+            name: "Genre",
+            selector: (row) => row.genre,
+            sortable: true,
+            cell: (row) => (<p className="w-max mx-auto text-center">{row.genre}</p>),
+            minWidth: "90px",
+            maxWidth: "120px"
         },
         {
             name: "ISBN",
@@ -69,20 +74,12 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
             maxWidth: "150px",
         },
         {
-            name: "Genre",
-            selector: (row) => row.genre,
-            sortable: true,
-            cell: (row) => (<p className="w-max mx-auto text-center">{row.genre}</p>),
-            minWidth: "60px",
-            maxWidth: "80px"
-        },
-        {
-            name: "Remaining Copies",
+            name: "Copies",
             selector: (row) => row.copies,
             cell: (row) => (<p className="w-max mx-auto text-center">{row.copies}</p>),
             sortable: true,
-            minWidth: "129px",
-            maxWidth: "150px"
+            minWidth: "90px",
+            maxWidth: "120px"
         },
         {
             name: "Availability",
@@ -93,21 +90,28 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
                 {row.available === true? "Available" : "Not Available"}
             </p>
             ),
-            minWidth: "100px",
-            maxWidth: "120px"
+            minWidth: "120px",
+            maxWidth: "170px"
         },
         {
-            name: "Action",
+            name: "Actions",
             selector: (row) => row._id,
             sortable: false,
             cell: (row) => (
                 <div className="w-max mx-auto flex flex-col justify-center items-center gap-2">
-                    {/* <Link to={`/edit-book/${row._id}`} className="w-max py-1 px-2 rounded-lg bg-green-500 text-white hover:scale-105">Edit</Link>
-                    <button onClick={() => handleDelete(row._id)} className="w-max py-1 px-2 rounded-lg bg-red-500 text-black hover:scale-105">Delete</button> */}
+                    <Link to={`/books/${row._id}`} className="w-max hover:scale-105 hover:underline">See Details</Link>
+                    <Link to={`/edit-book/${row._id}`} className="w-max text-green-500 flex justify-center items-center gap-1 hover:scale-105 hover:underline">
+                        <span>Borrow</span>
+                        <Handshake className='w-3 h-3' />
+                    </Link>
+                    <Link to={`/edit-book/${row._id}`} className="w-max text-yellow-400 flex justify-center items-center gap-1 hover:scale-105 hover:underline">
+                        <span>Edit</span>
+                        <Pencil className='w-3 h-3'/>
+                    </Link>
+                    <button onClick={() => handleDelete(row._id)} className="w-max px-2 rounded-lg bg-red-500 text-black hover:scale-105 cursor-pointer">Delete</button>
                 </div>
             ),
             minWidth: "100px",
-            maxWidth: "120px"
         },
     ];
 
@@ -122,8 +126,6 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
                 justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
-                // backgroundColor: isDarkMode ? '#1f2937' : '#f3f4f6',
-                // color: isDarkMode ? '#f9fafb' : '#111827',
                 fontWeight: "bold",
                 fontSize: "1.12rem",
                 border: "1px solid rgb(161, 98, 7)",
@@ -134,8 +136,6 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
             style: {
                 display: "flex",          // Ensure the cells use Flexbox
                 alignItems: "center",
-                // backgroundColor: isDarkMode ? '#111827' : '#ffffff',
-                // color: isDarkMode ? '#f9fafb' : '#1f2937',
                 border: "1px solid rgb(161, 98, 7)",
                 padding: "2px 1px",
                 textWrap: "wrap"
@@ -144,16 +144,12 @@ const BooksTable = ({books}: {books:Ibook[]}) => {
         pagination: {
             style: {
                 marginTop: "1rem",
-                // backgroundColor: isDarkMode ? '#111827' : '#ffffff',
-                // color: isDarkMode ? '#f9fafb' : '#1f2937',
             },
         }
     };
 
     return (
         <div>
-            {/* <Heading title="Manage All Existing Camps"></Heading> */}
-
             <div className="flex flex-col justify-center items-center">
                 <DataTable
                     columns={columns}

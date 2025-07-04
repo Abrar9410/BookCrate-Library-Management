@@ -1,7 +1,7 @@
 import BooksTable from "@/components/BooksTable";
+import Heading from "@/components/Heading";
 import { useGetAllBooksQuery } from "@/redux/api/baseApi";
 import { useAppSelector } from "@/redux/hooks";
-import type { Ibook } from "@/types";
 
 
 const Books = () => {
@@ -20,7 +20,7 @@ const Books = () => {
 
     return (
         <div>
-            THIS IS ALL BOOKS ROUTE
+            <Heading title="WELCOME to BookCrate!" subtitle="Which book do you want to have today? Check out all the books here. Just click on Borrow to borrow a book." />
             <BooksTable books={data.data}/>
         </div>
     );
