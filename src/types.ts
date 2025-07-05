@@ -13,6 +13,12 @@ export interface Ibook {
 
 export type DraftBook = Pick<Ibook, "title" | "author" | "genre" | "isbn" | "description" | "copies" >;
 
+export interface Iborrow {
+    book: string,
+    quantity: number,
+    dueDate: Date
+};
+
 export interface IborrowedBook {
     book : {
         title: string,

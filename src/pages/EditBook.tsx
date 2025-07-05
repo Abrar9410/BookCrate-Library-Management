@@ -16,7 +16,7 @@ const EditBook = () => {
 
     return (
         <>
-            <Heading title="Add a Book" subtitle="Fill up this form with details to add a new book."></Heading>
+            <Heading title="Edit Book" subtitle="Fill up this form with the updated information."></Heading>
             <BookForm oldBookData={data.data} />
         </>
     );

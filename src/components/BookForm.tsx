@@ -59,7 +59,13 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
                 position: "top-center"
             });
             reset();
+            setUploading(false);
             navigate(-1);
+        } else {
+            toast(`${res.data.message}`, {
+                position: "top-center"
+            });
+            setUploading(false);
         }
     };
     
@@ -77,6 +83,11 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
             });
             reset();
             setUploading(false);
+        } else {
+            toast(`${res.data.message}`, {
+                position: "top-center"
+            });
+            setUploading(false);
         }
     }
 
@@ -84,14 +95,14 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
         <div className="p-2 min-[300px]:p-4 min-[450px]:p-6 sm:p-8 bg-slate-100 dark:bg-black 2xl:w-11/12 mx-auto shadow-lg mt-4 min-[400px]:mt-6 sm:mt-8 md:mt-10">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4">
-                    <div className="form-control w-full">
+                    <div className="w-full">
                         <label className="label text-black dark:text-white">
                             <span className="font-semibold">Title</span>
                         </label>
                         <Input type="text" placeholder="Book Title" {...register("title", { required: true })} className="input input-bordered h-10 w-full bg-black dark:bg-white text-white dark:text-black" />
                         {errors.title?.type === 'required' && <span className="text-red-600">You forgot to provide Title</span>}
                     </div>
-                    <div className="form-control w-full">
+                    <div className="w-full">
                         <label className="label text-black dark:text-white">
                             <span className="font-semibold">Author</span>
                         </label>
@@ -100,7 +111,7 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
                     </div>
                 </div>
                 <div className="flex flex-col sm:flex-row justify-center gap-2 md:gap-4">
-                    <div className="form-control w-full">
+                    <div className="w-full">
                         <label className="label text-black dark:text-white">
                             <span className="font-semibold">Genre</span>
                         </label>
@@ -128,22 +139,47 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
                             <span className="text-red-600">You forgot to mention the genre of the book</span>
                         )}
                     </div>
-                    <div className="form-control w-full">
+                    <div className="w-full">
                         <label className="label text-black dark:text-white">
                             <span className="font-semibold">ISBN</span>
                         </label>
-                        <Input type="number" placeholder="ISBN" {...register("isbn", { required: true })} className="input input-bordered h-10 w-full bg-black dark:bg-white text-white dark:text-black" />
-                        {errors.isbn?.type === 'required' && <span className="text-red-600">Please mention the ISBN of the book</span>}
+                        <Input
+                            type="text"
+                            placeholder="e.g. 9783161484100"
+                            {...register("isbn", {
+                                required: "ISBN is required",
+                                pattern: {
+                                    value: /^(97(8|9))?\d{9}(\d|X)$/i,
+                                    message: "Invalid ISBN format"
+                                }
+                            })}
+                            maxLength={13}
+                            className="input input-bordered h-10 w-full bg-black dark:bg-white text-white dark:text-black"
+                        />
+                        {errors.isbn && <span className="text-red-600">{errors.isbn.message}</span>}
+
                     </div>
-                    <div className="form-control w-full">
+                    <div className="w-full">
                         <label className="label text-black dark:text-white">
                             <span className="font-semibold">Copies</span>
                         </label>
-                        <Input type="number" placeholder="0" {...register("copies", { required: true })} className="input input-bordered h-10 w-full bg-black dark:bg-white text-white dark:text-black" min={0} />
-                        {errors.copies?.type === 'required' && <span className="text-red-600">You forgot to mention the available copies</span>}
+                        <Input
+                            type="number"
+                            placeholder="Enter a number"
+                            {...register("copies", {
+                                required: "This field is required",
+                                min: {
+                                    value: 0,
+                                    message: "Value must be 0 or greater",
+                                },
+                                validate: (value) =>
+                                    Number.isInteger(Number(value)) || "Must be a whole number",
+                            })}
+                        />
+                        {errors.copies && <span className="text-red-600">{errors.copies.message}</span>}
                     </div>
                 </div>
-                <div className="form-control w-full">
+                <div className="w-full">
                     <label className="label text-black dark:text-white">
                         <span className="font-semibold">Description</span>
                     </label>
@@ -153,13 +189,13 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
                         className="textarea textarea-bordered textarea-md w-full bg-black dark:bg-white text-white dark:text-black" />
                     {errors.description?.type === 'required' && <span className="text-red-600">Please give a short description of the book</span>}
                 </div>
-                <div className="form-control gap-4 mt-4 items-center">
+                <div className="flex flex-col gap-4 mt-4 items-center">
                     <p className="text-red-600">{errorMessage}</p>
-                    <button className="btn w-full bg-green-500 text-white lg:text-lg hover:bg-green-500 hover:scale-105 outline-none border-none">
+                    <button className="btn w-full rounded-lg py-1 bg-green-500 text-white lg:text-lg hover:bg-green-500 hover:scale-105 outline-none border-none">
                         {
                             uploading ?
                                 <span className="loading loading-spinner loading-md"></span> :
-                                <span>Submit</span>
+                                <span>{!oldBookData ? "Add Book" : "Edit Book"}</span>
                         }
                     </button>
                 </div>

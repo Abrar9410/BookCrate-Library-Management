@@ -1,69 +1,139 @@
-# React + TypeScript + Vite
+# 📚 BookCrate Library Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+BookCrate is a minimalist Library Management System built using **React**, **Redux Toolkit Query (RTK Query)**, and **TypeScript**. The system is designed to demonstrate clean architecture, RESTful API integration, and responsive UI design for managing books and borrowings—**without the complexity of user authentication or payment systems**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+### ✅ Public Access
+All routes are open and do not require authentication, allowing users to manage and interact with books freely.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📖 Book Management
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Book List Table**  
+  View all books in a responsive table layout with the following columns:
+  - Title
+  - Author
+  - Genre
+  - ISBN
+  - Copies
+  - Availability
+  - Actions (Edit | Delete | Borrow)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Add New Book**  
+  - Accessed via `/create-book`
+  - Form fields include: Title, Author, Genre, ISBN, Description, Copies
+  - Automatically marked as available unless copies = 0
+  - Redirects to book list upon successful submission
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Edit Book**  
+  - Accessed via `/edit-book/:id`
+  - Updates existing book info and reflects changes immediately
+
+- **Delete Book**  
+  - Opens a confirmation modal before deleting
+  - Removes the book and updates the UI upon confirmation
+
+- **Borrow Book**  
+  - Accessed via `/borrow/:bookId`
+  - Fields: Quantity, Due Date
+  - Borrow logic:
+    - Quantity cannot exceed available copies
+    - If copies reach 0, the book is marked as unavailable
+  - On success, redirects to `/borrow-summary`
+
+### 📊 Borrow Summary
+
+- Accessed via `/borrow-summary`
+- Aggregated view of all borrowed books
+- Displays:
+  - Book Title
+  - ISBN
+  - Total Quantity Borrowed
+
+---
+
+## 🧩 Page Structure
+
+| Route               | Description                                 |
+|--------------------|---------------------------------------------|
+| `/books`           | List of all books with actions              |
+| `/create-book`     | Form to add a new book                      |
+| `/books/:id`       | View detailed book information              |
+| `/edit-book/:id`   | Edit a book’s details                       |
+| `/borrow/:bookId`  | Borrow form for a selected book             |
+| `/borrow-summary`  | Aggregated list of borrowed books           |
+
+---
+
+## 🧑‍🎨 UI/UX Design
+
+- **Minimal & Clean**: Focus on usability and clarity using **Tailwind CSS**
+- **Responsive**: Fully adaptable across mobile, tablet, and desktop devices
+- **User-Friendly Navigation**:
+  - Simple **Navbar** for routing between major sections
+  - Clearly labeled buttons and forms
+  - Standard **Footer** with site info or credits
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React + TypeScript
+- **State Management**: Redux Toolkit Query (RTK Query)
+- **Styling**: Tailwind CSS
+- **API**: RESTful endpoints (assumed to be available)
+
+---
+
+## 📦 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/bookcrate-library.git
+cd bookcrate-library
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install Dependencies
+bash
+Copy
+Edit
+npm install
+# or
+yarn install
+3. Configure API Base URL
+Update the base URL of your REST API in src/redux/api/apiSlice.ts or wherever you've configured RTK Query.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+ts
+Copy
+Edit
+// Example
+baseUrl: 'http://localhost:5000/api',
+4. Start the Development Server
+bash
+Copy
+Edit
+npm run dev
+# or
+yarn dev
+Visit http://localhost:5173 to view the app in your browser.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Available Scripts
+Command	Description
+npm run dev	Starts the development server
+npm run build	Builds the app for production
+npm run lint	Runs linter to check for code issues
+
+📁 Folder Structure (Simplified)
+
+src/
+├── components/         # Reusable UI components
+├── pages/              # All page-level components
+├── redux/              # RTK Query API slices and state
+├── routes/             # Route configurations
+├── types/              # TypeScript interfaces & types
+├── App.tsx             # Main app component
+├── main.tsx            # Entry point
+

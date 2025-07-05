@@ -100,7 +100,7 @@ const BooksTable = ({ books }: { books: Ibook[] }) => {
             cell: (row) => (
                 <div className="w-max mx-auto flex flex-col justify-center items-center gap-2">
                     <Link to={`/books/${row._id}`} className="w-max hover:scale-105 hover:underline">See Details</Link>
-                    <Link to={`/edit-book/${row._id}`} className="w-max text-green-500 flex justify-center items-center gap-1 hover:scale-105 hover:underline">
+                    <Link to={`/borrow/${row._id}`} className="w-max text-green-500 flex justify-center items-center gap-1 hover:scale-105 hover:underline">
                         <span>Borrow</span>
                         <Handshake className='w-3 h-3' />
                     </Link>
