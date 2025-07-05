@@ -54,7 +54,7 @@ const SingleBook = () => {
             <p className="lg:text-lg mt-4"><span className="font-semibold">Currently Available:</span> <span>{book.available===true? "Yes" : "No"}</span></p>
             
             <div className="flex flex-col items-center gap-3 mt-4">
-                <Link to={`/edit-book/${book._id}`} className="w-max lg:text-lg text-green-500 flex justify-center items-center gap-1 hover:scale-105 hover:underline">
+                <Link to={`/borrow/${book._id}`} className="w-max lg:text-lg text-green-500 flex justify-center items-center gap-1 hover:scale-105 hover:underline">
                     <span>Borrow</span>
                     <Handshake className='w-4 h-4' />
                 </Link>

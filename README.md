@@ -92,8 +92,8 @@ All routes are open and do not require authentication, allowing users to manage 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/bookcrate-library.git
-cd bookcrate-library
+git clone https://github.com/Abrar9410/BookCrate-Library-Management.git
+cd bookcrate-library-management
 ```
 
 ### 2. Install Dependencies
