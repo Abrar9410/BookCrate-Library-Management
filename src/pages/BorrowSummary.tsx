@@ -1,5 +1,6 @@
 import BorrowSummaryTable from "@/components/BorrowSummaryTable";
 import Heading from "@/components/Heading";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { useGetBorrowSummaryQuery } from "@/redux/api/baseApi";
 import { useAppSelector } from "@/redux/hooks";
 
@@ -11,7 +12,7 @@ const BorrowSummary = () => {
         const { data, isLoading } = useGetBorrowSummaryQuery(`?sortBy=${borrowSortBy}&sort=${borrowSort}&skip=${borrowSkip}&limit=${borrowLimit}`);
     
         if(isLoading) {
-            return <p>Loading...</p>
+            return <LoadingSkeleton/>
         };
     
         if (!data) {

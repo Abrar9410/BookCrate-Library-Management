@@ -1,3 +1,4 @@
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { useDeleteBookMutation, useGetSingleBookQuery } from "@/redux/api/baseApi";
 import { Handshake, Pencil } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router";
@@ -35,7 +36,7 @@ const SingleBook = () => {
     }
     
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <LoadingSkeleton/>;
     };
     
     const book = data.data;
