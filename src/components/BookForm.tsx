@@ -175,6 +175,7 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
                                 validate: (value) =>
                                     Number.isInteger(Number(value)) || "Must be a whole number",
                             })}
+                            className="input input-bordered h-10 w-full bg-black dark:bg-white text-white dark:text-black"
                         />
                         {errors.copies && <span className="text-red-600">{errors.copies.message}</span>}
                     </div>
@@ -191,7 +192,7 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
                 </div>
                 <div className="flex flex-col gap-4 mt-4 items-center">
                     <p className="text-red-600">{errorMessage}</p>
-                    <button className="btn w-full rounded-lg py-1 bg-green-500 text-white lg:text-lg hover:bg-green-500 hover:scale-105 outline-none border-none">
+                    <button className="btn w-full rounded-lg py-1 bg-green-500 text-white lg:text-lg hover:bg-green-500 hover:scale-105 outline-none border-none cursor-pointer">
                         {
                             uploading ?
                                 <span className="loading loading-spinner loading-md"></span> :
