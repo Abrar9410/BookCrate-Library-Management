@@ -1,5 +1,6 @@
 import BookForm from "@/components/BookForm";
 import Heading from "@/components/Heading";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { useGetSingleBookQuery } from "@/redux/api/baseApi";
 import { useParams } from "react-router";
 
@@ -11,7 +12,7 @@ const EditBook = () => {
     const { data, isLoading } = useGetSingleBookQuery(`${id}`); 
 
     if (isLoading) {
-        return <p>Loading...</p>
+        return <LoadingSkeleton/>
     }
 
     return (

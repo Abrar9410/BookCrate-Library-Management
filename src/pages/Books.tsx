@@ -1,5 +1,6 @@
 import BooksTable from "@/components/BooksTable";
 import Heading from "@/components/Heading";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { useGetAllBooksQuery } from "@/redux/api/baseApi";
 import { useAppSelector } from "@/redux/hooks";
 
@@ -11,7 +12,7 @@ const Books = () => {
     const { data, isLoading } = useGetAllBooksQuery(`?filter=${filter}&sortBy=${sortBy}&sort=${sort}&skip=${skip}&limit=${limit}`);
 
     if(isLoading) {
-        return <p>Loading...</p>
+        return <LoadingSkeleton/>
     };
 
     if (!data) {
