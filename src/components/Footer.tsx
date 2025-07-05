@@ -10,7 +10,7 @@ const Footer = () => {
                         <img src={logo} alt="logo" className="w-64 h-14"/>
                     </div>
                     <p className="text-white max-[200px]:text-sm text-center sm:text-start sm:pt-6">
-                        Transforming Lives Through Thoughtful Planning and Seamless Medical Camp Management.
+                        Your digital shelf, perfectly sorted.
                     </p>
                 </div>
                 <div className="text-center">
