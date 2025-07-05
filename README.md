@@ -4,12 +4,12 @@ BookCrate is a minimalist Library Management System built using **React**, **Red
 
 ---
 
-## 🚀 Features
+## Features
 
-### ✅ Public Access
+### Public Access
 All routes are open and do not require authentication, allowing users to manage and interact with books freely.
 
-### 📖 Book Management
+### Book Management
 
 - **Book List Table**  
   View all books in a responsive table layout with the following columns:
@@ -43,7 +43,7 @@ All routes are open and do not require authentication, allowing users to manage 
     - If copies reach 0, the book is marked as unavailable
   - On success, redirects to `/borrow-summary`
 
-### 📊 Borrow Summary
+### Borrow Summary
 
 - Accessed via `/borrow-summary`
 - Aggregated view of all borrowed books
@@ -54,7 +54,7 @@ All routes are open and do not require authentication, allowing users to manage 
 
 ---
 
-## 🧩 Page Structure
+## Page Structure
 
 | Route               | Description                                 |
 |--------------------|---------------------------------------------|
@@ -67,7 +67,7 @@ All routes are open and do not require authentication, allowing users to manage 
 
 ---
 
-## 🧑‍🎨 UI/UX Design
+## UI/UX Design
 
 - **Minimal & Clean**: Focus on usability and clarity using **Tailwind CSS**
 - **Responsive**: Fully adaptable across mobile, tablet, and desktop devices
@@ -78,7 +78,7 @@ All routes are open and do not require authentication, allowing users to manage 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: React + TypeScript
 - **State Management**: Redux Toolkit Query (RTK Query)
@@ -87,7 +87,7 @@ All routes are open and do not require authentication, allowing users to manage 
 
 ---
 
-## 📦 Getting Started
+## Getting Started
 
 ### 1. Clone the Repository
 
@@ -96,44 +96,39 @@ git clone https://github.com/your-username/bookcrate-library.git
 cd bookcrate-library
 ```
 
-2. Install Dependencies
-bash
-Copy
-Edit
+### 2. Install Dependencies
+
+```bash
 npm install
 # or
 yarn install
-3. Configure API Base URL
+```
+
+### 3. Configure API Base URL
 Update the base URL of your REST API in src/redux/api/apiSlice.ts or wherever you've configured RTK Query.
 
-ts
-Copy
-Edit
+```ts
 // Example
 baseUrl: 'http://localhost:5000/api',
-4. Start the Development Server
-bash
-Copy
-Edit
+```
+
+### 4. Start the Development Server
+
+```bash
 npm run dev
 # or
 yarn dev
+```
+
 Visit http://localhost:5173 to view the app in your browser.
 
-Available Scripts
-Command	Description
-npm run dev	Starts the development server
-npm run build	Builds the app for production
-npm run lint	Runs linter to check for code issues
+## Available Scripts
 
-📁 Folder Structure (Simplified)
+| Command         | Description                          |
+|----------------|--------------------------------------|
+| `npm run dev`   | Starts the development server        |
+| `npm run build` | Builds the app for production        |
+| `npm run lint`  | Runs linter to check for code issues |
 
-src/
-├── components/         # Reusable UI components
-├── pages/              # All page-level components
-├── redux/              # RTK Query API slices and state
-├── routes/             # Route configurations
-├── types/              # TypeScript interfaces & types
-├── App.tsx             # Main app component
-├── main.tsx            # Entry point
 
+[Live Link](https://bookcrate-library-management.netlify.app/)
