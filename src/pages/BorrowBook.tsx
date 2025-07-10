@@ -37,7 +37,7 @@ const BorrowBook = () => {
             });
             setUploading(false);
             reset();
-            navigate(-1);
+            navigate("/borrow-summary");
         } else {
             toast.error(`${res.data.message}`, {
                 position: "top-center"
