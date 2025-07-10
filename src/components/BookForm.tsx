@@ -77,7 +77,7 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "New Camp has been added!",
+                title: "New Book added successfully!",
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -89,7 +89,7 @@ const BookForm = ({oldBookData}: {oldBookData: Ibook | ''}) => {
             });
             setUploading(false);
         }
-    }
+    };
 
     return (
         <div className="p-2 min-[300px]:p-4 min-[450px]:p-6 sm:p-8 bg-slate-100 dark:bg-black 2xl:w-11/12 mx-auto shadow-lg mt-4 min-[400px]:mt-6 sm:mt-8 md:mt-10">
